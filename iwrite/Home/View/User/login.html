@@ -1,0 +1,75 @@
+<include file="Public:header" />
+	<body style="background-color: #f3f3f3;">
+	<div class="content" align="center">
+			<div style="margin-top: 100px;">
+			<h2>Iwrite在线文档编辑</h2>
+			</div>
+		<form method="post" action="{:U('User/login')}">
+		<div class="content login-content">
+			<br />
+			<div style="width: 350px;">
+			<hr class="style-eight-top">
+			</div>
+			<br />
+			<div class="input-group" id="loginname">
+			  	<input type="text" class="form-control" placeholder="Username" size="40" name="name"/>
+			</div>
+			<div class="input-group" id="loginpwd">
+			<br /><br />
+			 	<input type="password" class="form-control" placeholder="Password" size="40" name="pwd"/>
+			</div>
+			<div name="login" id="login">
+			<br /><br />
+				<button type="submit" class="btn btn-primary" style="width: 300px;">登录</button>
+			<br /><br />
+			</div>
+			<div name="iwrite" id="iwrite" style="display: none;">
+				<h2 class="glyphicon glyphicon-cloud-upload"></h2>
+			<div class="input-group">
+				<input type="text" class="form-control" name="inputget" id="inputget" size="40" placeholder="请输入你的邮箱"/>
+			</div>
+			<br />
+				<button type="button" class="btn btn-success" style="width: 300px;" name="geta" id="geta">点击申请Iwrite</button>
+			<br /><br /><br /><br /><br /><br />
+			</div>
+			<div name="star" id="star">
+			<br />
+			<button type="button" class="btn btn-success" style="width: 300px;" name="get" id="get">Iwrite在线账号申请</button>
+			</div>
+			<div style="width: 350px;">
+				<hr class="style-eight-bom">
+			</div>
+		</div>
+		</form>
+	</div>
+	<script>
+		$("#get").click(function(){
+			$("#star").hide();
+			$("#login").hide();
+			$("#loginname").hide();
+			$("#loginpwd").hide();
+			$("#iwrite").show();
+		});
+	</script>
+	<script>
+		$("#geta").click(function(){
+			if($("#inputget").val()!=""){
+				$.ajax({
+					type:"post",
+					url:"{:U('Cloud/getaccount')}",
+					data: {	"email":$("#inputget").val()},
+					dataType:'text',
+					success:function(data){
+						alert("提交成功，等待回复！");
+					},
+					error:function(data){
+						alert(data);
+					}
+				})	
+			}else{
+				alert("请输入您的邮箱，方便我们将审核过后的账号以邮件的形式回复给您。");
+			}
+		});
+	</script>
+	</body>
+</html>
